@@ -3,11 +3,12 @@ import Timer from './components/Timer.js';
 
 function App() {
 
-  const minSecs = {startingMins: 25, startingSecs: 0}
+  const minSecs = {startingMins: 0, startingSecs: 10}
+  const breakMinSecs = {breakMins: 0, breakSecs: 5}
 
   return (
     <div className="main-wrapper">
-      <Timer minSecs={minSecs}/>
+      <Timer minSecs={minSecs} breakMinSecs={breakMinSecs}/>
     </div>
   );
 }

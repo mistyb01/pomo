@@ -1,12 +1,10 @@
 import React from 'react';
+import Timer from './components/Timer.js';
 
 function App() {
   return (
     <div className="main-wrapper">
-      <span>25:00</span>
-      <div className="buttons">
-        <button>play</button>
-      </div>
+      <Timer/>
     </div>
   );
 }

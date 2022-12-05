@@ -2,9 +2,12 @@ import React from 'react';
 import Timer from './components/Timer.js';
 
 function App() {
+
+  const minSecs = {mins: 25, secs: 0}
+
   return (
     <div className="main-wrapper">
-      <Timer/>
+      <Timer minSecs={minSecs}/>
     </div>
   );
 }

@@ -1,11 +1,13 @@
 import React from 'react';
-import './App.css';
 
 function App() {
   return (
-    <p>
-      Cleanedup React App
-    </p>
+    <div className="main-wrapper">
+      <span>25:00</span>
+      <div className="buttons">
+        <button>play</button>
+      </div>
+    </div>
   );
 }
 

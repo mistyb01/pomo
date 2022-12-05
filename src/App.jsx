@@ -3,7 +3,7 @@ import Timer from './components/Timer.js';
 
 function App() {
 
-  const minSecs = {mins: 25, secs: 0}
+  const minSecs = {startingMins: 25, startingSecs: 0}
 
   return (
     <div className="main-wrapper">

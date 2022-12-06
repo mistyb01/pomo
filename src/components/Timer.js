@@ -36,7 +36,8 @@ function Timer({focusMinSecs, breakMinSecs}) {
         setTime([workLength, 0]) :
         setTime([breakLength, 0]);
         setTimeLastStart(new Date().getTime());
-
+        setTimeLeft(workLength * 60);
+        setPreviousTime(workLength * 60);
     };
 
     function transitionMode() {

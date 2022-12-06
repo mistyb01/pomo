@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-function Timer({focusMinSecs, breakMinSecs}) {
+function Timer() {
 
-    const [workLength, setWorkLength] = useState(2);
-    const [breakLength, setBreakLength] = useState(1);
+    const [workLength, setWorkLength] = useState(1);
+    const [breakLength, setBreakLength] = useState(0.1);
     const [timeLastStart, setTimeLastStart] = useState(new Date().getTime());
 
     const [[currMins, currSecs], setTime] = useState([workLength, 0]);
@@ -64,7 +64,6 @@ function Timer({focusMinSecs, breakMinSecs}) {
         setTimeLeft(previousTime);
         setTimeLastStart(new Date().getTime());
     }, [isActive])
-
 
     return (
         <>

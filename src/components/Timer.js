@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 function Timer({focusMinSecs, breakMinSecs}) {
-    // timer logic adapted from bhargav bachina's code: https://medium.com/bb-tutorials-and-thoughts/how-to-create-a-countdown-timer-in-react-app-e99916046292
-
 
     const [workLength, setWorkLength] = useState(2);
     const [breakLength, setBreakLength] = useState(1);
@@ -13,11 +11,10 @@ function Timer({focusMinSecs, breakMinSecs}) {
     const [previousTime, setPreviousTime] = useState(timeLeft);
 
     const [isActive, setActive] = useState(false);
-    const [mode, setMode] = useState("focus");
+    const [workMode, setWorkMode] = useState(true);
 
 
     function findCurrTime() {
-        // let workSeconds = workLength * 60;
         let currentTime = new Date().getTime();
         
         let timeDifference = (currentTime - timeLastStart) / 1000;
@@ -35,32 +32,33 @@ function Timer({focusMinSecs, breakMinSecs}) {
 
     const reset = () => {
         setTimeLastStart(new Date().getTime());
-
-        if(mode === "focus") {
-            setTime([workLength, 0]);
-            setTimeLeft(workLength * 60);
-            setPreviousTime(workLength * 60);
+        if(workMode) {
+            resetWork();
         } else {
-            setTime([breakLength, 0]);
-            setTimeLeft(breakLength * 60);
-            setPreviousTime(breakLength * 60);
+            resetBreak();
         }        
     };
 
     function transitionMode() {
         setActive(false);
-        if (mode === "focus") {
-            console.log("end of focus")
-            setMode("break");
-            setTime([breakLength, 0]);
-            setTimeLeft(breakLength * 60);
-            setPreviousTime(breakLength * 60);
+        if (workMode) {
+            resetBreak();
         } else {
-            setMode("focus");
-            setTime([workLength, 0]);
-            setTimeLeft(workLength * 60);
-            setPreviousTime(workLength * 60);
-        }        
+            resetWork();
+        }     
+        setWorkMode(!workMode);   
+    }
+
+    function resetBreak() {
+        setTime([breakLength, 0]);
+        setTimeLeft(breakLength * 60);
+        setPreviousTime(breakLength * 60);
+    }
+
+    function resetWork() {
+        setTime([workLength, 0]);
+        setTimeLeft(workLength * 60);
+        setPreviousTime(workLength * 60);
     }
 
     useEffect(() => {
@@ -78,12 +76,13 @@ function Timer({focusMinSecs, breakMinSecs}) {
 
     return (
         <>
-            <h3>{mode === "focus" ? "let's focus..." : "take it easy!"}</h3>
+            <h3>{workMode ? "let's focus..." : "take it easy!"}</h3>
             <span>{`${currMins.toString().padStart(2, '0')}:${currSecs
                 .toString().padStart(2, '0')}`}</span> 
             <div className="buttons">
                 <button onClick={() => setActive(!isActive)}>{isActive ? "pause" : "play"}</button>
                 <button onClick={reset}>reset</button>
+                <button>skip</button>
             </div>
         </>
     );

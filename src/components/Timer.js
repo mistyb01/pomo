@@ -32,22 +32,8 @@ function Timer({focusMinSecs, breakMinSecs}) {
 
     const reset = () => {
         setTimeLastStart(new Date().getTime());
-        if(workMode) {
-            resetWork();
-        } else {
-            resetBreak();
-        }        
+        workMode ? resetWork() : resetBreak();     
     };
-
-    function transitionMode() {
-        setActive(false);
-        if (workMode) {
-            resetBreak();
-        } else {
-            resetWork();
-        }     
-        setWorkMode(!workMode);   
-    }
 
     function resetBreak() {
         setTime([breakLength, 0]);
@@ -59,6 +45,12 @@ function Timer({focusMinSecs, breakMinSecs}) {
         setTime([workLength, 0]);
         setTimeLeft(workLength * 60);
         setPreviousTime(workLength * 60);
+    }
+
+    function transitionMode() {
+        setActive(false);
+        workMode ? resetBreak() : resetWork(); 
+        setWorkMode(!workMode);   
     }
 
     useEffect(() => {
@@ -82,7 +74,7 @@ function Timer({focusMinSecs, breakMinSecs}) {
             <div className="buttons">
                 <button onClick={() => setActive(!isActive)}>{isActive ? "pause" : "play"}</button>
                 <button onClick={reset}>reset</button>
-                <button>skip</button>
+                <button onClick={transitionMode}>skip</button>
             </div>
         </>
     );

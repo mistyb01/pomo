@@ -5,8 +5,8 @@ import breakEndSfx from '../sound/sfx-selectjingle.wav';
 
 function Timer() {
 
-    const [workLength, setWorkLength] = useState(0.1);
-    const [breakLength, setBreakLength] = useState(0.1);
+    const [workLength, setWorkLength] = useState(2);
+    const [breakLength, setBreakLength] = useState(1);
     const [timeLastStart, setTimeLastStart] = useState(new Date().getTime());
 
     const [[currMins, currSecs], setTime] = useState([workLength, 0]);
@@ -39,7 +39,7 @@ function Timer() {
         
         setTime([displayMin, displaySec]);
 
-        if (displayMin === 0 && displaySec === 0) {
+        if (displayMin <= 0 && displaySec <= 0) {
             workMode ? playWorkSound() : playBreakSound();
             transitionMode();
         }

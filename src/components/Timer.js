@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import useSound from 'use-sound';
+import doneSfx from '../sound/eb_fanfare.wav';
+import breakEndSfx from '../sound/sfx-selectjingle.wav';
 
 function Timer() {
 
-    const [workLength, setWorkLength] = useState(1);
+    const [workLength, setWorkLength] = useState(0.1);
     const [breakLength, setBreakLength] = useState(0.1);
     const [timeLastStart, setTimeLastStart] = useState(new Date().getTime());
 
@@ -12,6 +15,15 @@ function Timer() {
 
     const [isActive, setActive] = useState(false);
     const [workMode, setWorkMode] = useState(true);
+
+    const [ playWorkSound, {stopWorkSound} ] = useSound(
+        doneSfx,
+        {volume: 1}
+    );
+    const [ playBreakSound, {stopBreakSound} ] = useSound(
+        breakEndSfx,
+        {volume: 1}
+    )
 
 
     function findCurrTime() {
@@ -27,7 +39,10 @@ function Timer() {
         
         setTime([displayMin, displaySec]);
 
-        if (displayMin === 0 && displaySec === 0) transitionMode();
+        if (displayMin === 0 && displaySec === 0) {
+            workMode ? playWorkSound() : playBreakSound();
+            transitionMode();
+        }
     }
 
     const reset = () => {
@@ -52,6 +67,7 @@ function Timer() {
         workMode ? resetBreak() : resetWork(); 
         setWorkMode(!workMode);   
     }
+
 
     useEffect(() => {
         if (isActive) {

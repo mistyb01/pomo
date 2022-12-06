@@ -11,6 +11,22 @@ function Timer({focusMinSecs, breakMinSecs}) {
     const [isActive, setActive] = useState(false);
     const [mode, setMode] = useState("focus");
 
+    const [workLength, setWorkLength] = useState(25);
+    const [timeLastStart, setTimeLastStart] = useState(new Date().getTime());
+
+    function findCurrTime() {
+        let now = new Date();
+        let workSeconds = workLength * 60;
+        let currentTime = now.getTime();
+        
+        let timeDifference = (currentTime - timeLastStart) / 1000;
+        let displayMillisec = (workSeconds - timeDifference);
+
+        let displayMin = Math.trunc(displayMillisec / 60);
+        let displaySec = Math.trunc(displayMillisec % 60);
+        console.log(displayMin, displaySec);
+    }
+
     const tick = () => {
         if (currMins === 0 && currSecs === 0) {
             // reset();
@@ -43,15 +59,20 @@ function Timer({focusMinSecs, breakMinSecs}) {
 
     useEffect(() => {
         if (isActive) {
-            const timerId = setInterval(() => tick(), 1000);
+            const timerId = setInterval(() => findCurrTime(), 1000);
             return () => clearInterval(timerId);
         }
     });
 
+    // // run once at start
+    // useEffect(() => {
+    //     findCurrTime();
+    // }, [])
+
 
     return (
         <>
-        <h3>{mode === "focus" ? "let's focus..." : "take it easy!"}</h3>
+            <h3>{mode === "focus" ? "let's focus..." : "take it easy!"}</h3>
             <span>{`${currMins.toString().padStart(2, '0')}:${currSecs
                 .toString().padStart(2, '0')}`}</span> 
             <div className="buttons">

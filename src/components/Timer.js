@@ -25,7 +25,7 @@ function Timer({focusMinSecs, breakMinSecs}) {
         setPreviousTime(displayTime);
 
         let displayMin = Math.trunc(displayTime / 60);
-        let displaySec = Math.trunc(displayTime % 60);
+        let displaySec = Math.round(displayTime % 60);
         console.log(displayMin, displaySec);
         
         setTime([displayMin, displaySec]);

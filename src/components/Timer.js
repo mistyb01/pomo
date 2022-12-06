@@ -4,8 +4,8 @@ function Timer({focusMinSecs, breakMinSecs}) {
     // timer logic adapted from bhargav bachina's code: https://medium.com/bb-tutorials-and-thoughts/how-to-create-a-countdown-timer-in-react-app-e99916046292
 
 
-    const [workLength, setWorkLength] = useState(25);
-    const [breakLength, setBreakLength] = useState(5);
+    const [workLength, setWorkLength] = useState(2);
+    const [breakLength, setBreakLength] = useState(1);
     const [timeLastStart, setTimeLastStart] = useState(new Date().getTime());
 
     const [[currMins, currSecs], setTime] = useState([workLength, 0]);
@@ -29,15 +29,22 @@ function Timer({focusMinSecs, breakMinSecs}) {
         console.log(displayMin, displaySec);
         
         setTime([displayMin, displaySec]);
+
+        if (displayMin === 0 && displaySec === 0) transitionMode();
     }
 
     const reset = () => {
-        mode === "focus" ?
-        setTime([workLength, 0]) :
-        setTime([breakLength, 0]);
         setTimeLastStart(new Date().getTime());
-        setTimeLeft(workLength * 60);
-        setPreviousTime(workLength * 60);
+
+        if(mode === "focus") {
+            setTime([workLength, 0]);
+            setTimeLeft(workLength * 60);
+            setPreviousTime(workLength * 60);
+        } else {
+            setTime([breakLength, 0]);
+            setTimeLeft(breakLength * 60);
+            setPreviousTime(breakLength * 60);
+        }        
     };
 
     function transitionMode() {
@@ -46,10 +53,14 @@ function Timer({focusMinSecs, breakMinSecs}) {
             console.log("end of focus")
             setMode("break");
             setTime([breakLength, 0]);
+            setTimeLeft(breakLength * 60);
+            setPreviousTime(breakLength * 60);
         } else {
             setMode("focus");
             setTime([workLength, 0]);
-        }
+            setTimeLeft(workLength * 60);
+            setPreviousTime(workLength * 60);
+        }        
     }
 
     useEffect(() => {

@@ -101,8 +101,9 @@ function Timer() {
             setTimeout(() => {
                 notification.close();
             }, 10 * 1000);
+        
         }
-        notification.show;
+        
     }
 
     return (

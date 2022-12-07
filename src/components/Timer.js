@@ -5,8 +5,8 @@ import breakEndSfx from '../sound/sfx-selectjingle.wav';
 
 function Timer() {
 
-    const [workLength, setWorkLength] = useState(2);
-    const [breakLength, setBreakLength] = useState(1);
+    const [workLength, setWorkLength] = useState(0.1);
+    const [breakLength, setBreakLength] = useState(0.1);
     const [timeLastStart, setTimeLastStart] = useState(new Date().getTime());
 
     const [[currMins, currSecs], setTime] = useState([workLength, 0]);
@@ -25,7 +25,6 @@ function Timer() {
         {volume: 1}
     )
 
-
     function findCurrTime() {
         let currentTime = new Date().getTime();
         
@@ -42,6 +41,7 @@ function Timer() {
         if (displayMin <= 0 && displaySec <= 0) {
             workMode ? playWorkSound() : playBreakSound();
             transitionMode();
+            showNotification();
         }
     }
 
@@ -68,7 +68,6 @@ function Timer() {
         setWorkMode(!workMode);   
     }
 
-
     useEffect(() => {
         if (isActive) {
             const timerId = setInterval(() => findCurrTime(), 1000);
@@ -80,6 +79,31 @@ function Timer() {
         setTimeLeft(previousTime);
         setTimeLastStart(new Date().getTime());
     }, [isActive])
+
+    useEffect(() => {
+        if (!("Notification" in window)) {
+            console.log("Browser does not support notifications.")
+        } else {
+            Notification.requestPermission();
+        }
+    }, [])
+
+    const showNotification = () => {
+        // create a new notification
+        console.log(Notification.permission);
+        if (Notification.permission === 'granted') {
+            const notification = new Notification('Pomodoro', {
+                body: 'you completed a session!',
+                icon: '../img/done-icon.png'
+            });
+
+            // close the notification after 10 seconds
+            setTimeout(() => {
+                notification.close();
+            }, 10 * 1000);
+        }
+        notification.show;
+    }
 
     return (
         <>

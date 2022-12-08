@@ -22,18 +22,26 @@ body {
     font-size: 12rem;
 }
 
+.buttons {
+    display: flex;
+    gap: 1rem;
+}
+
 button {
     color: aliceblue;
-    font-size: 2rem;
-    padding: 1rem 2rem;
     border: 1px solid aliceblue;
     border-radius: 10px;
     background-color: transparent;
 }
 
-.buttons {
-    display: flex;
-    gap: 1rem;
+.buttons button {
+    font-size: 2rem;
+    padding: 1rem 2rem;
+}
+
+.form-button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
 }
 
 nav ul {
@@ -50,4 +58,21 @@ nav ul {
 nav a {
     color:rgba(250, 235, 215, 0.581);
     text-decoration: none;
+}
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.form-field {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.form-field input {
+    width: 20%;
 }

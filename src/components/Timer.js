@@ -3,14 +3,12 @@ import useSound from 'use-sound';
 import doneSfx from '../sound/eb_fanfare.wav';
 import breakEndSfx from '../sound/sfx-selectjingle.wav';
 
-function Timer() {
-
-    const [workLength, setWorkLength] = useState(25);
-    const [breakLength, setBreakLength] = useState(5);
+function Timer({ workMins, breakMins }) {
+    
     const [timeLastStart, setTimeLastStart] = useState(new Date().getTime());
 
-    const [[currMins, currSecs], setTime] = useState([workLength, 0]);
-    const [timeLeft, setTimeLeft] = useState(workLength * 60);
+    const [[currMins, currSecs], setTime] = useState([workMins, 0]);
+    const [timeLeft, setTimeLeft] = useState(workMins * 60);
     const [previousTime, setPreviousTime] = useState(timeLeft);
 
     const [isActive, setActive] = useState(false);
@@ -51,15 +49,15 @@ function Timer() {
     };
 
     function resetBreak() {
-        setTime([breakLength, 0]);
-        setTimeLeft(breakLength * 60);
-        setPreviousTime(breakLength * 60);
+        setTime([breakMins, 0]);
+        setTimeLeft(breakMins * 60);
+        setPreviousTime(breakMins * 60);
     }
 
     function resetWork() {
-        setTime([workLength, 0]);
-        setTimeLeft(workLength * 60);
-        setPreviousTime(workLength * 60);
+        setTime([workMins, 0]);
+        setTimeLeft(workMins * 60);
+        setPreviousTime(workMins * 60);
     }
 
     function transitionMode() {

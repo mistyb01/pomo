@@ -35,3 +35,19 @@ button {
     display: flex;
     gap: 1rem;
 }
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 1rem;
+}
+
+nav a {
+    color:rgba(250, 235, 215, 0.581);
+    text-decoration: none;
+}

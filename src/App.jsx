@@ -9,9 +9,14 @@ function App() {
   const [breakMins, setBreakMins] = useState(5);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
+  function updateSessionLengths(workInput, breakInput) {
+    setWorkMins(workInput);
+    setBreakMins(breakInput);
+  }
+
   return (
     <div className="main-wrapper">
-      {settingsOpen && <SettingsMenu/>}
+      {settingsOpen && <SettingsMenu workMins={workMins} breakMins={breakMins} updateSessionLengths={updateSessionLengths}/>}
       <Navigation settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen}/>
       <Timer workMins={workMins} breakMins={breakMins}/>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Timer from './components/Timer.js';
+import TimerRedo from './components/TimerRedo.js';
 import Navigation from './components/Navigation.js';
 import SettingsMenu from './components/SettingsMenu.js';
 
@@ -18,7 +18,7 @@ function App() {
     <div className="main-wrapper">
       {settingsOpen && <SettingsMenu workMins={workMins} breakMins={breakMins} updateSessionLengths={updateSessionLengths}/>}
       <Navigation settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen}/>
-      <Timer workMins={workMins} breakMins={breakMins}/>
+      <TimerRedo workMins={workMins} breakMins={breakMins}/>
     </div>
   );
 }

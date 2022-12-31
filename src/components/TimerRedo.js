@@ -15,11 +15,33 @@ function TimerRedo({ workMins, breakMins }) {
         {volume: 1}
     );
 
-    const [currMins, setCurrMins] = useState(25);
-    const [currSecs, setCurrSecs] = useState(0);
     const [isActive, setActive] = useState(false);
     const [workMode, setWorkMode] = useState(true);
 
+    const [startTime, setStartTime] = useState(0);
+    const [elapsedTime, setElapsedTime] = useState(0);
+
+    const [[currMins, currSecs], setTime] = useState([workMins, 0]);
+
+    const tick = () => {
+        if (currMins === 0 && currSecs === 0) {
+            reset()
+        } else if (currSecs === 0) {
+            setTime([currMins - 1, 59]);
+        } else {
+            setTime([currMins, currSecs - 1]);
+        }
+        console.log(currMins, currSecs);
+    };
+
+    const reset = () => setTime([parseInt(workMins), parseInt(0)]);
+
+    React.useEffect(() => {
+        if (isActive) {
+        const timerId = setInterval(() => tick(), 1000);
+        return () => clearInterval(timerId);
+        }
+    })
 
     return (
         <>
